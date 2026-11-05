@@ -7,7 +7,12 @@ module i2c_address_decoder (
 
     output logic [6:0] address,
     output logic rw,
-    output logic address_valid
+    output logic address_valid,
+
+    // New ACK/NACK outputs
+    output logic ack_valid,
+    output logic address_acked,
+    output logic address_nack
 );
 
     // Synchronize incoming I2C signals
@@ -15,10 +20,10 @@ module i2c_address_decoder (
     logic scl_meta, scl_sync;
     logic scl_prev;
 
-    // START/STOP pulses from milestone 1
     logic start_pulse;
     logic stop_pulse;
 
+    // Reuse START/STOP detector
     i2c_start_stop detector (
         .clk(clk),
         .rst_n(rst_n),
@@ -44,13 +49,14 @@ module i2c_address_decoder (
         end
     end
 
-    // Detect rising edge of SCL
+    // SCL rising edge
     wire scl_rising = !scl_prev && scl_sync;
 
-    // Decoder states
-    localparam IDLE    = 2'd0;
-    localparam ADDRESS = 2'd1;
-    localparam DONE    = 2'd2;
+    // FSM states
+    localparam IDLE     = 2'd0;
+    localparam ADDRESS  = 2'd1;
+    localparam ADDR_ACK = 2'd2;
+    localparam DONE     = 2'd3;
 
     logic [1:0] state;
     logic [2:0] bit_count;
@@ -61,44 +67,74 @@ module i2c_address_decoder (
             state <= IDLE;
             bit_count <= 0;
             shift_reg <= 0;
+
             address <= 0;
             rw <= 0;
+
             address_valid <= 0;
+            ack_valid <= 0;
+            address_acked <= 0;
+            address_nack <= 0;
+
         end else begin
 
-            // Default: pulse remains LOW
+            // Pulses are normally LOW
             address_valid <= 0;
+            ack_valid <= 0;
+            address_nack <= 0;
 
             // START or repeated START
             if (start_pulse) begin
                 state <= ADDRESS;
                 bit_count <= 0;
                 shift_reg <= 0;
+                address_acked <= 0;
             end
 
-            // STOP ends the transaction
+            // STOP ends transaction
             else if (stop_pulse) begin
                 state <= IDLE;
             end
 
-            // Read one bit on each SCL rising edge
-            else if (state == ADDRESS && scl_rising) begin
+            else if (scl_rising) begin
 
-                shift_reg <= {shift_reg[6:0], sda_sync};
+                case (state)
 
-                if (bit_count == 7) begin
-                    // First 7 bits are address
-                    address <= shift_reg[6:0];
+                    ADDRESS: begin
+                        shift_reg <= {
+                            shift_reg[6:0],
+                            sda_sync
+                        };
 
-                    // Eighth bit is read/write
-                    rw <= sda_sync;
+                        if (bit_count == 7) begin
+                            address <= shift_reg[6:0];
+                            rw <= sda_sync;
 
-                    // Complete address received
-                    address_valid <= 1'b1;
-                    state <= DONE;
-                end else begin
-                    bit_count <= bit_count + 1'b1;
-                end
+                            address_valid <= 1'b1;
+                            state <= ADDR_ACK;
+                        end else begin
+                            bit_count <= bit_count + 1'b1;
+                        end
+                    end
+
+                    ADDR_ACK: begin
+                        // SDA=0 -> ACK
+                        // SDA=1 -> NACK
+
+                        address_acked <= !sda_sync;
+                        ack_valid <= 1'b1;
+
+                        if (sda_sync)
+                            address_nack <= 1'b1;
+
+                        state <= DONE;
+                    end
+
+                    default: begin
+                        // No action
+                    end
+
+                endcase
             end
         end
     end
