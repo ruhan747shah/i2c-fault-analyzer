@@ -226,6 +226,32 @@ No hardware implementation or timing closure is claimed.
 **Synthesis:** Integrated RTL successfully synthesized using Yosys.
 
 **Hardware:** Not tested on a physical FPGA.
+## Simulation Waveforms
+
+### Full I²C Simulation
+
+![Full I2C Simulation](examples/waveforms/full_simulation.png)
+
+Shows simulated I²C transactions, decoded events,
+timestamps, and fault-capture status.
+
+### Address-NACK Fault Trigger
+
+![Address NACK Trigger](examples/waveforms/address_nack_trigger.png)
+
+Shows an address NACK triggering the capture buffer.
+The buffer preserves eight preceding events and
+records seven subsequent events before freezing.
+
+## Verification Results
+
+- **Simulation:** 6/6 automated test suites passed
+- **Fault capture:** 16 timestamped events verified
+- **Yosys synthesis:** 2,678 generic logic cells
+- **Hardware:** Not yet tested on a physical FPGA
+
+All results are from simulation or generic synthesis,
+not physical hardware measurements.
 
 ## Author
 
