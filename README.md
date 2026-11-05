@@ -1,262 +1,232 @@
-
 # I²C Protocol Analyzer and Fault Capture
 
-A simulation-verified, synthesizable SystemVerilog I²C protocol analyzer with timestamped event logging and fault-triggered circular capture.
+A SystemVerilog-based I²C protocol analyzer that monitors communication between a controller and sensor, decodes transactions, and captures events surrounding communication failures.
 
-Designed as an FPGA hardware-debugging project to investigate I²C sensor communication failures.
+I built this project to get more experience with FPGA design, digital protocols, and hardware debugging. I was particularly interested in how debugging tools can identify problems on communication buses without interfering with the devices using them.
 
-## Features
+The project is entirely simulation-based, using Icarus Verilog for verification, GTKWave for waveform inspection, and Yosys for synthesis.
 
-- Passive monitoring of SDA and SCL
-- START, STOP, and repeated START detection
-- 7-bit device address and read/write decoding
-- Data-byte decoding
-- ACK/NACK classification
-- Address-NACK fault detection
-- Normal read-completion NACK recognition
-- 32-bit event timestamps
-- 16-entry circular event buffer
-- Eight pre-trigger events, one trigger, seven post-trigger events
-- Clock stretching and reset recovery tests
-- Automated simulation verification using Python
-- Generic logic synthesis using Yosys
+## What It Does
 
-## Architecture
+The analyzer passively monitors the I²C SDA and SCL lines. It identifies:
+
+- START, STOP, and repeated START conditions
+- 7-bit device addresses and read/write direction
+- Transmitted and received data bytes
+- ACK and NACK responses
+- Missing-device faults caused by address NACKs
+- Normal NACKs sent by the controller after reading data
+
+The main feature is a **fault-triggered circular buffer**.
+
+If a controller attempts to communicate with a sensor that doesn't acknowledge its address, the analyzer records the events leading up to that failure and several events afterward. This makes it possible to see what happened on the bus without manually searching through an entire waveform.
+
+## How It Works
+
+The design is divided into three main components.
 
 ```text
-Simulated I²C Controller + Sensor
-              |
-          SDA / SCL
-              |
-              v
-    Input Synchronization
-              |
-              v
-     Transaction Decoder
-              |
-              v
-      Timestamped Events
-              |
-              v
-    Circular Fault Capture
-              |
-              v
-       Readback Interface
+       I²C Controller + Sensor
+                 |
+              SDA / SCL
+                 |
+                 v
+        Input Synchronizer
+                 |
+                 v
+        Transaction Decoder
+                 |
+                 v
+          Event Logger
+                 |
+                 v
+       Circular Fault Buffer
+                 |
+                 v
+          Event Readback
 ```
 
-The analyzer never drives SDA or SCL.
+### 1. Transaction Decoder
 
-### Transaction Decoder
+**File:** `rtl/i2c_transaction_decoder.sv`
 
-`rtl/i2c_transaction_decoder.sv`
+The decoder uses a finite-state machine to follow I²C communication.
 
-Uses a finite-state machine to decode I²C bus activity.
+SDA and SCL are first synchronized to a faster system clock. The decoder then looks for START and STOP conditions and samples SDA on rising SCL edges.
 
-States:
+An 8-bit shift register collects incoming bits, while a counter keeps track of the current bit position.
 
-- IDLE
-- ADDR_BITS
-- ADDR_ACK
-- DATA_BITS
-- DATA_ACK
-- WAIT_END
+The FSM uses six states: `IDLE`, `ADDR_BITS`, `ADDR_ACK`, `DATA_BITS`, `DATA_ACK`, and `WAIT_END`.
 
-The decoder samples SDA on synchronized SCL rising edges.
+One important part of the design is ACK/NACK classification. An address NACK can indicate that a device isn't responding, while a NACK after the final byte of a read is normal I²C behavior. The decoder distinguishes these based on the current transaction state.
 
-### Event Logger
+### 2. Event Logger
 
-`rtl/i2c_event_logger.sv`
+**File:** `rtl/i2c_event_logger.sv`
 
-Converts decoded events into structured records containing:
+Instead of only outputting decoded data, the event logger produces a record each time something happens on the bus.
 
-- Event type: 4 bits
-- Event data: 8 bits
-- Timestamp: 32 bits
+Each event contains:
 
-At a 50 MHz system clock, each timestamp tick represents 20 ns.
+| Field | Width | Purpose |
+|---|---:|---|
+| Event type | 4 bits | START, STOP, address, data, ACK, NACK, etc. |
+| Event data | 8 bits | Address/RW byte or transferred data |
+| Timestamp | 32 bits | System-clock count when the event occurred |
 
-### Fault Capture
+The simulation uses a 50 MHz system clock, giving each timestamp tick a resolution of 20 ns.
 
-`rtl/i2c_fault_capture.sv`
+The timestamps make it possible to reconstruct the order of events and investigate the communication sequence surrounding a fault.
 
-Maintains a rolling history of the eight most recent events.
+### 3. Circular Fault Buffer
 
-When an address NACK occurs:
+**File:** `rtl/i2c_fault_capture.sv`
 
-1. Preserve eight preceding events.
-2. Store the address-NACK trigger.
-3. Capture seven subsequent events.
-4. Freeze the 16-entry buffer.
-5. Allow indexed readback.
+The fault-capture module continuously maintains a short history of recent I²C events.
 
-If fewer than eight earlier events exist, fewer entries are retained.
+When an address NACK is detected, it captures up to 16 events:
 
-A read-completion NACK does not trigger fault capture.
+- 8 events before the fault
+- 1 address-NACK trigger event
+- 7 events after the fault
 
-The buffer requires reset before another capture.
+Once the post-trigger events have been collected, the buffer freezes. The stored events can then be read back in chronological order.
 
-## Supported Protocol Behavior
+The implementation uses a circular buffer with a write pointer, event counter, and trigger state.
 
-The current implementation supports standard 7-bit I²C transfers, including:
+The buffer is currently implemented using registers and synthesized logic. Using FPGA block RAM would be a useful improvement for a larger capture depth.
 
-- Addressed read and write operations
-- Multiple data bytes
-- Repeated START conditions
-- ACK and NACK responses
-- Clock stretching, where SCL remains low longer
-- Reset during a transaction
+## Testing and Verification
 
-Address NACKs are classified separately from NACKs occurring after read data.
+Since this project was designed to work without a physical FPGA, I used SystemVerilog testbenches to simulate the I²C controller and sensor.
 
-## Simulation Verification
+The testbenches model open-drain SDA and SCL signals, including devices pulling the lines low and releasing them.
 
-The RTL was tested using Icarus Verilog.
+I tested the following situations:
 
-Run all tests:
+| Test | What it checks |
+|---|---|
+| START/STOP detection | Correct detection of bus conditions |
+| Address decoding | 7-bit address and R/W identification |
+| ACK/NACK detection | Successful responses and missing devices |
+| Transaction decoding | Data bytes and repeated START sequences |
+| Event logging | Event order, payloads, and timestamps |
+| Fault capture | Pre-trigger and post-trigger events |
+| Clock stretching and reset | Extended SCL-low periods and recovery after reset |
+
+I used Python to automate compilation and simulation with Icarus Verilog.
+
+**Result: 6/6 automated test suites passed.**
+
+To run the tests:
 
 ```bash
 python3 scripts/run_tests.py
 ```
 
-Test coverage:
+The script creates a verification report in `reports/simulation_report.txt`.
 
-| Test | Behavior |
-|---|---|
-| START/STOP | Detect bus start and stop conditions |
-| Address decoder | Decode 7-bit address and R/W |
-| ACK/NACK | Verify responding and missing devices |
-| Transaction decoder | Decode data and repeated START |
-| Event logger | Verify event order and timestamps |
-| Circular capture | Verify pre/post-trigger events |
-| Edge cases | Verify clock stretching and reset |
+### Debugging During Development
 
-The regression script generates a simulation report in
-`reports/simulation_report.txt`.
+A couple of issues came up while implementing and verifying the design.
 
-### Waveforms
+One was in the repeated START testbench. The simulated sensor wasn't releasing SDA correctly after acknowledging a byte, which meant the analyzer couldn't recognize the next START condition. Fixing the open-drain behavior resolved the issue.
 
-Simulations generate VCD files inside `sim/`.
+Another issue came up when verifying the circular buffer. The testbench incorrectly compared timestamps after jumping backward to reread an earlier buffer entry. I corrected the verification logic so it checked timestamp ordering separately from random-access readback.
 
-Example:
+Both issues were useful reminders that testbench behavior needs to be verified just as carefully as RTL.
 
-```bash
-gtkwave sim/i2c_fault_capture.vcd
-```
-
-Important signals include:
-
-- `sda`
-- `scl`
-- `event_valid`
-- `event_type`
-- `event_timestamp`
-- `fault_triggered`
-- `capture_done`
-- `capture_count`
-
-## Yosys Synthesis Results
-
-The integrated RTL was synthesized with Yosys.
-
-Run:
-
-```bash
-bash scripts/run_synthesis.sh
-```
-
-Observed generic synthesis results:
-
-| Metric | Result |
-|---|---:|
-| Total cells | 2,678 |
-| Flip-flop cells | 849 |
-| Remaining memory bits | 0 |
-| RTL modules in hierarchy | 4 |
-
-These are generic Yosys synthesis statistics, not results from a specific FPGA architecture.
-
-The event buffer was mapped into logic and flip-flops rather than FPGA block RAM.
-
-No hardware implementation or timing closure is claimed.
-
-## Sampling Assumptions
-
-- The monitor uses a 50 MHz system clock in the supplied tests.
-- SDA and SCL are synchronized before decoding.
-- I²C transitions must remain stable long enough to be sampled.
-- The design assumes a single controller and conventional I²C timing.
-- Clock stretching is observed through the synchronized SCL input.
-- The simulation uses idealized digital open-drain signals.
-
-## Limitations
-
-- Simulation and generic logic synthesis only
-- No physical FPGA validation yet
-- No 10-bit address support
-- No multi-controller arbitration detection
-- No analog signal integrity measurements
-- No programmable digital glitch filter
-- No automatic buffer rearming
-- No FPGA-specific timing analysis
-- NACK classification is based on transaction phase; normal read NACKs are recognized but the design does not infer application-level intent
-
-## Tools
-
-- SystemVerilog
-- Icarus Verilog
-- GTKWave
-- Python 3
-- Yosys
-- Git
-
-## Future Improvements
-
-- Hardware demonstration on an FPGA board
-- FPGA block-RAM-based event storage
-- Configurable fault triggers
-- Programmable pre/post-trigger depth
-- UART streaming of captured events
-- Bus timing and glitch detection
-- 10-bit address support
-
-## Verification Status
-
-**Simulation:** Individual functional and fault-capture tests passed in Icarus Verilog.
-
-**Synthesis:** Integrated RTL successfully synthesized using Yosys.
-
-**Hardware:** Not tested on a physical FPGA.
 ## Simulation Waveforms
+
+I used GTKWave to inspect the decoded transactions and fault-capture behavior.
 
 ### Full I²C Simulation
 
 ![Full I2C Simulation](examples/waveforms/full_simulation.png)
 
-Shows simulated I²C transactions, decoded events,
-timestamps, and fault-capture status.
+The waveform shows I²C communication alongside decoded events, event timestamps, and the fault-capture status.
 
 ### Address-NACK Fault Trigger
 
 ![Address NACK Trigger](examples/waveforms/address_nack_trigger.png)
 
-Shows an address NACK triggering the capture buffer.
-The buffer preserves eight preceding events and
-records seven subsequent events before freezing.
+This waveform shows the analyzer detecting an address NACK. The `fault_triggered` signal goes high, and the circular buffer begins collecting post-trigger events.
 
-## Verification Results
+A readable example of the captured events is available in [fault_capture_log.txt](examples/fault_capture_log.txt).
 
-- **Simulation:** 6/6 automated test suites passed
-- **Fault capture:** 16 timestamped events verified
-- **Yosys synthesis:** 2,678 generic logic cells
-- **Hardware:** Not yet tested on a physical FPGA
+## Synthesis Results
 
-All results are from simulation or generic synthesis,
-not physical hardware measurements.
+I synthesized the complete design using Yosys to check that the RTL could be converted into digital logic.
 
-## Author
+Run synthesis with:
 
-Ruhan Shah  
-Electrical Engineering — University of Waterloo
+```bash
+bash scripts/run_synthesis.sh
+```
 
-GitHub: https://github.com/ruhan747shah
+### Generic Yosys Results
 
+| Resource | Count |
+|---|---:|
+| Total cells | 2,678 |
+| Flip-flop cells | 849 |
+| Remaining memory bits | 0 |
+| Modules in design hierarchy | 4 |
+
+The event buffer accounts for a significant portion of the storage logic because the current implementation uses flip-flops rather than FPGA block RAM.
+
+These numbers are from generic Yosys synthesis. They are not FPGA-specific LUT counts, and I haven't performed placement, routing, or hardware timing analysis.
+
+The full report is available in `reports/yosys_synthesis.log`.
+
+## Design Assumptions and Limitations
+
+This version focuses on standard 7-bit I²C communication under conventional digital timing assumptions.
+
+The design uses a faster system clock to sample SDA and SCL. Both signals pass through synchronizers before being decoded, so bus transitions must remain stable long enough to be sampled reliably.
+
+The current implementation has a few limitations:
+
+- Only 7-bit I²C addressing is supported.
+- Multi-controller arbitration isn't detected.
+- There is no programmable glitch filter.
+- The capture buffer must be reset before another fault can be recorded.
+- No physical FPGA has been used for validation yet.
+- Analog signal problems, such as slow rise times and electrical noise, aren't modeled.
+- NACK classification uses protocol state rather than application-level knowledge.
+
+The testbench includes clock stretching and reset recovery, but the project hasn't been tested against every possible I²C timing corner case.
+
+## Tools Used
+
+- **SystemVerilog** — RTL design and testbenches
+- **Icarus Verilog** — Compilation and simulation
+- **GTKWave** — Waveform inspection and debugging
+- **Python** — Automated regression testing
+- **Yosys** — RTL synthesis and resource reporting
+- **Git/GitHub** — Version control and documentation
+
+## What I'd Improve Next
+
+The next step would be to deploy the analyzer on an actual FPGA and connect it to a physical I²C bus.
+
+I'd also like to explore using block RAM for event storage, adding configurable fault triggers, and sending captured events to a computer over UART.
+
+Other possible extensions include 10-bit address decoding, timing violation detection, and more advanced handling of noisy or malformed bus signals.
+
+## Project Status
+
+**Simulation:** Passed all six automated test suites.
+
+**Synthesis:** Completed using Yosys.
+
+**Physical FPGA testing:** Not performed yet.
+
+All results presented here come from simulation or generic RTL synthesis.
+
+---
+
+**Ruhan Shah**  
+Electrical Engineering | University of Waterloo
+
+[GitHub Profile](https://github.com/ruhan747shah)
