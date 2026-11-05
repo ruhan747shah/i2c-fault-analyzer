@@ -1,0 +1,12 @@
+I2C Protocol Analyzer — Simulation Verification Report
+Generated: 2026-11-05 11:07:02
+
+[PASS] START/STOP Detection
+[PASS] Address ACK/NACK
+[PASS] Full Transaction Decoder
+[PASS] Timestamped Event Logger
+[PASS] Circular Fault Capture
+[PASS] Clock Stretching + Reset
+
+Total: 6/6 tests passed
+Results are from Icarus Verilog simulation.
