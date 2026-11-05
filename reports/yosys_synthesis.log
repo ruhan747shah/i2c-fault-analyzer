@@ -1,0 +1,1851 @@
+
+-- Running command `
+    read_verilog -sv rtl/i2c_transaction_decoder.sv
+    read_verilog -sv rtl/i2c_event_logger.sv
+    read_verilog -sv rtl/i2c_fault_capture.sv
+    read_verilog -sv rtl/i2c_analyzer_top.sv
+    hierarchy -check -top i2c_analyzer_top
+    synth -top i2c_analyzer_top
+    stat -width
+' --
+
+1. Executing Verilog-2005 frontend: rtl/i2c_transaction_decoder.sv
+Parsing SystemVerilog input from `rtl/i2c_transaction_decoder.sv' to AST representation.
+Generating RTLIL representation for module `\i2c_transaction_decoder'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: rtl/i2c_event_logger.sv
+Parsing SystemVerilog input from `rtl/i2c_event_logger.sv' to AST representation.
+Generating RTLIL representation for module `\i2c_event_logger'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: rtl/i2c_fault_capture.sv
+Parsing SystemVerilog input from `rtl/i2c_fault_capture.sv' to AST representation.
+Generating RTLIL representation for module `\i2c_fault_capture'.
+Warning: Replacing memory \time_mem with list of registers. See rtl/i2c_fault_capture.sv:77
+Warning: Replacing memory \data_mem with list of registers. See rtl/i2c_fault_capture.sv:76
+Warning: Replacing memory \type_mem with list of registers. See rtl/i2c_fault_capture.sv:75
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: rtl/i2c_analyzer_top.sv
+Parsing SystemVerilog input from `rtl/i2c_analyzer_top.sv' to AST representation.
+Generating RTLIL representation for module `\i2c_analyzer_top'.
+Successfully finished Verilog frontend.
+
+5. Executing HIERARCHY pass (managing design hierarchy).
+
+5.1. Analyzing design hierarchy..
+Top module:  \i2c_analyzer_top
+Used module:     \i2c_fault_capture
+Used module:     \i2c_event_logger
+Used module:         \i2c_transaction_decoder
+
+5.2. Analyzing design hierarchy..
+Top module:  \i2c_analyzer_top
+Used module:     \i2c_fault_capture
+Used module:     \i2c_event_logger
+Used module:         \i2c_transaction_decoder
+Removed 0 unused modules.
+
+6. Executing SYNTH pass.
+
+6.1. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1.1. Analyzing design hierarchy..
+Top module:  \i2c_analyzer_top
+Used module:     \i2c_fault_capture
+Used module:     \i2c_event_logger
+Used module:         \i2c_transaction_decoder
+
+6.1.2. Analyzing design hierarchy..
+Top module:  \i2c_analyzer_top
+Used module:     \i2c_fault_capture
+Used module:     \i2c_event_logger
+Used module:         \i2c_transaction_decoder
+Removed 0 unused modules.
+
+6.2. Executing PROC pass (convert processes to netlists).
+
+6.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+6.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed 1 dead cases from process $proc$rtl/i2c_fault_capture.sv:0$82 in module i2c_fault_capture.
+Marked 1 switch rules as full_case in process $proc$rtl/i2c_fault_capture.sv:0$82 in module i2c_fault_capture.
+Removed 1 dead cases from process $proc$rtl/i2c_fault_capture.sv:0$79 in module i2c_fault_capture.
+Marked 1 switch rules as full_case in process $proc$rtl/i2c_fault_capture.sv:0$79 in module i2c_fault_capture.
+Removed 1 dead cases from process $proc$rtl/i2c_fault_capture.sv:0$76 in module i2c_fault_capture.
+Marked 1 switch rules as full_case in process $proc$rtl/i2c_fault_capture.sv:0$76 in module i2c_fault_capture.
+Marked 8 switch rules as full_case in process $proc$rtl/i2c_fault_capture.sv:60$44 in module i2c_fault_capture.
+Marked 10 switch rules as full_case in process $proc$rtl/i2c_event_logger.sv:84$25 in module i2c_event_logger.
+Marked 1 switch rules as full_case in process $proc$rtl/i2c_event_logger.sv:76$22 in module i2c_event_logger.
+Marked 7 switch rules as full_case in process $proc$rtl/i2c_transaction_decoder.sv:72$13 in module i2c_transaction_decoder.
+Marked 1 switch rules as full_case in process $proc$rtl/i2c_transaction_decoder.sv:30$1 in module i2c_transaction_decoder.
+Removed a total of 3 dead cases.
+
+6.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 17 redundant assignments.
+Promoted 9 assignments to connections.
+
+6.2.4. Executing PROC_INIT pass (extract init attributes).
+
+6.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+Found async reset \rst_n in `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+Found async reset \rst_n in `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:76$22'.
+Found async reset \rst_n in `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+Found async reset \rst_n in `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+
+6.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~32 debug messages>
+
+6.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$82'.
+     1/1: $1$mem2reg_rd$\time_mem$rtl/i2c_fault_capture.sv:58$34_DATA[31:0]$84
+Creating decoders for process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$79'.
+     1/1: $1$mem2reg_rd$\data_mem$rtl/i2c_fault_capture.sv:55$33_DATA[7:0]$81
+Creating decoders for process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$76'.
+     1/1: $1$mem2reg_rd$\type_mem$rtl/i2c_fault_capture.sv:52$32_DATA[3:0]$78
+Creating decoders for process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+     1/67: $2$mem2reg_wr$\time_mem$rtl/i2c_fault_capture.sv:77$37_ADDR[3:0]$64
+     2/67: $2$mem2reg_wr$\time_mem$rtl/i2c_fault_capture.sv:77$37_DATA[31:0]$65
+     3/67: $2$mem2reg_wr$\data_mem$rtl/i2c_fault_capture.sv:76$36_ADDR[3:0]$62
+     4/67: $2$mem2reg_wr$\data_mem$rtl/i2c_fault_capture.sv:76$36_DATA[7:0]$63
+     5/67: $2$mem2reg_wr$\type_mem$rtl/i2c_fault_capture.sv:75$35_ADDR[3:0]$60
+     6/67: $2$mem2reg_wr$\type_mem$rtl/i2c_fault_capture.sv:75$35_DATA[3:0]$61
+     7/67: $1$mem2reg_wr$\time_mem$rtl/i2c_fault_capture.sv:77$37_DATA[31:0]$57
+     8/67: $1$mem2reg_wr$\time_mem$rtl/i2c_fault_capture.sv:77$37_ADDR[3:0]$56
+     9/67: $1$mem2reg_wr$\data_mem$rtl/i2c_fault_capture.sv:76$36_DATA[7:0]$55
+    10/67: $1$mem2reg_wr$\data_mem$rtl/i2c_fault_capture.sv:76$36_ADDR[3:0]$54
+    11/67: $1$mem2reg_wr$\type_mem$rtl/i2c_fault_capture.sv:75$35_DATA[3:0]$53
+    12/67: $1$mem2reg_wr$\type_mem$rtl/i2c_fault_capture.sv:75$35_ADDR[3:0]$52
+    13/67: $0\time_mem[15][31:0]
+    14/67: $0\time_mem[14][31:0]
+    15/67: $0\time_mem[13][31:0]
+    16/67: $0\time_mem[12][31:0]
+    17/67: $0\time_mem[11][31:0]
+    18/67: $0\time_mem[10][31:0]
+    19/67: $0\time_mem[9][31:0]
+    20/67: $0\time_mem[8][31:0]
+    21/67: $0\time_mem[7][31:0]
+    22/67: $0\time_mem[6][31:0]
+    23/67: $0\time_mem[5][31:0]
+    24/67: $0\time_mem[4][31:0]
+    25/67: $0\time_mem[3][31:0]
+    26/67: $0\time_mem[2][31:0]
+    27/67: $0\time_mem[1][31:0]
+    28/67: $0\time_mem[0][31:0]
+    29/67: $0\data_mem[15][7:0]
+    30/67: $0\data_mem[14][7:0]
+    31/67: $0\data_mem[13][7:0]
+    32/67: $0\data_mem[12][7:0]
+    33/67: $0\data_mem[11][7:0]
+    34/67: $0\data_mem[10][7:0]
+    35/67: $0\data_mem[9][7:0]
+    36/67: $0\data_mem[8][7:0]
+    37/67: $0\data_mem[7][7:0]
+    38/67: $0\data_mem[6][7:0]
+    39/67: $0\data_mem[5][7:0]
+    40/67: $0\data_mem[4][7:0]
+    41/67: $0\data_mem[3][7:0]
+    42/67: $0\data_mem[2][7:0]
+    43/67: $0\data_mem[1][7:0]
+    44/67: $0\data_mem[0][7:0]
+    45/67: $0\type_mem[15][3:0]
+    46/67: $0\type_mem[14][3:0]
+    47/67: $0\type_mem[13][3:0]
+    48/67: $0\type_mem[12][3:0]
+    49/67: $0\type_mem[11][3:0]
+    50/67: $0\type_mem[10][3:0]
+    51/67: $0\type_mem[9][3:0]
+    52/67: $0\type_mem[8][3:0]
+    53/67: $0\type_mem[7][3:0]
+    54/67: $0\type_mem[6][3:0]
+    55/67: $0\type_mem[5][3:0]
+    56/67: $0\type_mem[4][3:0]
+    57/67: $0\type_mem[3][3:0]
+    58/67: $0\type_mem[2][3:0]
+    59/67: $0\type_mem[1][3:0]
+    60/67: $0\type_mem[0][3:0]
+    61/67: $0\post_remaining[3:0]
+    62/67: $0\history_count[3:0]
+    63/67: $0\start_ptr[3:0]
+    64/67: $0\write_ptr[3:0]
+    65/67: $0\capture_count[4:0]
+    66/67: $0\capture_done[0:0]
+    67/67: $0\fault_triggered[0:0]
+Creating decoders for process `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+     1/4: $0\event_valid[0:0]
+     2/4: $0\event_timestamp[31:0]
+     3/4: $0\event_data[7:0]
+     4/4: $0\event_type[3:0]
+Creating decoders for process `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:76$22'.
+     1/1: $0\timestamp_counter[31:0]
+Creating decoders for process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+     1/16: $0\read_end_nack[0:0]
+     2/16: $0\address_nack[0:0]
+     3/16: $0\ack_is_address[0:0]
+     4/16: $0\ack_valid[0:0]
+     5/16: $0\data_valid[0:0]
+     6/16: $0\address_valid[0:0]
+     7/16: $0\stop_pulse[0:0]
+     8/16: $0\repeated_start[0:0]
+     9/16: $0\start_pulse[0:0]
+    10/16: $0\shift_reg[7:0]
+    11/16: $0\bit_count[2:0]
+    12/16: $0\state[2:0]
+    13/16: $0\acked[0:0]
+    14/16: $0\data_byte[7:0]
+    15/16: $0\rw[0:0]
+    16/16: $0\address[6:0]
+Creating decoders for process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+     1/6: $0\scl_prev[0:0]
+     2/6: $0\scl_sync[0:0]
+     3/6: $0\scl_meta[0:0]
+     4/6: $0\sda_prev[0:0]
+     5/6: $0\sda_sync[0:0]
+     6/6: $0\sda_meta[0:0]
+
+6.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\i2c_fault_capture.$mem2reg_rd$\time_mem$rtl/i2c_fault_capture.sv:58$34_DATA' from process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$82'.
+No latch inferred for signal `\i2c_fault_capture.$mem2reg_rd$\data_mem$rtl/i2c_fault_capture.sv:55$33_DATA' from process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$79'.
+No latch inferred for signal `\i2c_fault_capture.$mem2reg_rd$\type_mem$rtl/i2c_fault_capture.sv:52$32_DATA' from process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$76'.
+
+6.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\i2c_fault_capture.\fault_triggered' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1108' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.\capture_done' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1113' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.\capture_count' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1118' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.\write_ptr' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1123' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.\start_ptr' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1128' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.\history_count' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1133' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.\post_remaining' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1138' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.\type_mem[0]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1145' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[1]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1152' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[2]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1159' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[3]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1166' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[4]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1173' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[5]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1180' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[6]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1187' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[7]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1194' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[8]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1201' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[9]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1208' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[10]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1215' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[11]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1222' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[12]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1229' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[13]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1236' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[14]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1243' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\type_mem[15]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1250' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[0]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1257' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[1]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1264' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[2]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1271' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[3]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1278' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[4]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1285' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[5]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1292' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[6]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1299' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[7]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1306' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[8]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1313' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[9]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1320' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[10]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1327' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[11]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1334' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[12]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1341' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[13]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1348' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[14]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1355' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\data_mem[15]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1362' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[0]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1369' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[1]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1376' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[2]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1383' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[3]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1390' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[4]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1397' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[5]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1404' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[6]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1411' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[7]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1418' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[8]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1425' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[9]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1432' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[10]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1439' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[11]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1446' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[12]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1453' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[13]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1460' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[14]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1467' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.\time_mem[15]' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $dff cell `$procdff$1474' with positive edge clock.
+Creating register for signal `\i2c_fault_capture.$mem2reg_wr$\type_mem$rtl/i2c_fault_capture.sv:75$35_ADDR' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1479' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.$mem2reg_wr$\type_mem$rtl/i2c_fault_capture.sv:75$35_DATA' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1484' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.$mem2reg_wr$\data_mem$rtl/i2c_fault_capture.sv:76$36_ADDR' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1489' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.$mem2reg_wr$\data_mem$rtl/i2c_fault_capture.sv:76$36_DATA' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1494' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.$mem2reg_wr$\time_mem$rtl/i2c_fault_capture.sv:77$37_ADDR' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1499' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_fault_capture.$mem2reg_wr$\time_mem$rtl/i2c_fault_capture.sv:77$37_DATA' using process `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+  created $adff cell `$procdff$1504' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_event_logger.\event_valid' using process `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+  created $adff cell `$procdff$1509' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_event_logger.\event_type' using process `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+  created $adff cell `$procdff$1514' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_event_logger.\event_data' using process `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+  created $adff cell `$procdff$1519' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_event_logger.\event_timestamp' using process `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+  created $adff cell `$procdff$1524' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_event_logger.\timestamp_counter' using process `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:76$22'.
+  created $adff cell `$procdff$1529' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\start_pulse' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1534' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\repeated_start' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1539' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\stop_pulse' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1544' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\address' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1549' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\rw' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1554' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\address_valid' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1559' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\data_byte' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1564' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\data_valid' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1569' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\ack_valid' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1574' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\ack_is_address' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1579' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\acked' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1584' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\address_nack' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1589' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\read_end_nack' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1594' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\state' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1599' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\bit_count' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1604' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\shift_reg' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+  created $adff cell `$procdff$1609' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\sda_meta' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+  created $adff cell `$procdff$1614' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\sda_sync' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+  created $adff cell `$procdff$1619' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\sda_prev' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+  created $adff cell `$procdff$1624' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\scl_meta' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+  created $adff cell `$procdff$1629' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\scl_sync' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+  created $adff cell `$procdff$1634' with positive edge clock and positive level reset.
+Creating register for signal `\i2c_transaction_decoder.\scl_prev' using process `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+  created $adff cell `$procdff$1639' with positive edge clock and positive level reset.
+
+6.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+6.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$82'.
+Removing empty process `i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$82'.
+Found and cleaned up 1 empty switch in `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$79'.
+Removing empty process `i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$79'.
+Found and cleaned up 1 empty switch in `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$76'.
+Removing empty process `i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:0$76'.
+Found and cleaned up 8 empty switches in `\i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+Removing empty process `i2c_fault_capture.$proc$rtl/i2c_fault_capture.sv:60$44'.
+Found and cleaned up 11 empty switches in `\i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+Removing empty process `i2c_event_logger.$proc$rtl/i2c_event_logger.sv:84$25'.
+Removing empty process `i2c_event_logger.$proc$rtl/i2c_event_logger.sv:76$22'.
+Found and cleaned up 10 empty switches in `\i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+Removing empty process `i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:72$13'.
+Removing empty process `i2c_transaction_decoder.$proc$rtl/i2c_transaction_decoder.sv:30$1'.
+Cleaned up 32 empty switches.
+
+6.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_fault_capture.
+<suppressed ~134 debug messages>
+Optimizing module i2c_event_logger.
+<suppressed ~10 debug messages>
+Optimizing module i2c_transaction_decoder.
+<suppressed ~45 debug messages>
+
+6.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_transaction_decoder.
+
+6.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 106 unused cells and 474 unused wires.
+<suppressed ~109 debug messages>
+
+6.5. Executing CHECK pass (checking for obvious problems).
+Checking module i2c_analyzer_top...
+Checking module i2c_event_logger...
+Checking module i2c_fault_capture...
+Checking module i2c_transaction_decoder...
+Found and reported 0 problems.
+
+6.6. Executing OPT pass (performing simple optimizations).
+
+6.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+<suppressed ~192 debug messages>
+Finding identical cells in module `\i2c_transaction_decoder'.
+<suppressed ~72 debug messages>
+Removed a total of 88 cells.
+
+6.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+      Replacing known input bits on port B of cell $procmux$812: \fault_triggered -> 1'1
+      Replacing known input bits on port A of cell $procmux$810: \fault_triggered -> 1'0
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~78 debug messages>
+
+6.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+    New ctrl vector for $pmux cell $procmux$1047: $auto$opt_reduce.cc:137:opt_pmux$1641
+    New ctrl vector for $pmux cell $procmux$923: $auto$opt_reduce.cc:137:opt_pmux$1643
+    New ctrl vector for $pmux cell $procmux$981: { $procmux$1009_CMP $auto$opt_reduce.cc:137:opt_pmux$1645 $procmux$1001_CMP }
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 3 changes.
+
+6.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+<suppressed ~18 debug messages>
+Removed a total of 6 cells.
+
+6.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 94 unused wires.
+<suppressed ~2 debug messages>
+
+6.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~79 debug messages>
+
+6.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+    New ctrl vector for $pmux cell $procmux$1000: { $auto$opt_reduce.cc:137:opt_pmux$1649 $auto$opt_reduce.cc:137:opt_pmux$1647 }
+    New ctrl vector for $pmux cell $procmux$1025: { $procmux$1013_CMP $procmux$1005_CMP $auto$opt_reduce.cc:137:opt_pmux$1651 }
+    New ctrl vector for $pmux cell $procmux$981: { $auto$opt_reduce.cc:137:opt_pmux$1645 $auto$opt_reduce.cc:137:opt_pmux$1653 }
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 3 changes.
+
+6.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+<suppressed ~12 debug messages>
+Removed a total of 4 cells.
+
+6.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 4 unused wires.
+<suppressed ~1 debug messages>
+
+6.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.6.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.6.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~79 debug messages>
+
+6.6.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 0 changes.
+
+6.6.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.6.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.6.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.6.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.6.23. Finished OPT passes. (There is nothing left to do.)
+
+6.7. Executing FSM pass (extract and optimize FSM).
+
+6.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+Not marking i2c_event_logger.event_type as FSM state register:
+    Register is connected to module port.
+    Users of register don't seem to benefit from recoding.
+Not marking i2c_transaction_decoder.state as FSM state register:
+    Users of register don't seem to benefit from recoding.
+
+6.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+6.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+6.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+6.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+6.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+6.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+6.8. Executing OPT pass (performing simple optimizations).
+
+6.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~79 debug messages>
+
+6.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 0 changes.
+
+6.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$1524 ($adff) from module i2c_event_logger (D = \timestamp_counter, Q = \event_timestamp).
+Adding EN signal on $procdff$1519 ($adff) from module i2c_event_logger (D = $0\event_data[7:0], Q = \event_data).
+Adding EN signal on $procdff$1514 ($adff) from module i2c_event_logger (D = $0\event_type[3:0], Q = \event_type).
+Adding EN signal on $procdff$1474 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[15]).
+Adding EN signal on $procdff$1467 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[14]).
+Adding EN signal on $procdff$1460 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[13]).
+Adding EN signal on $procdff$1453 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[12]).
+Adding EN signal on $procdff$1446 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[11]).
+Adding EN signal on $procdff$1439 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[10]).
+Adding EN signal on $procdff$1432 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[9]).
+Adding EN signal on $procdff$1425 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[8]).
+Adding EN signal on $procdff$1418 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[7]).
+Adding EN signal on $procdff$1411 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[6]).
+Adding EN signal on $procdff$1404 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[5]).
+Adding EN signal on $procdff$1397 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[4]).
+Adding EN signal on $procdff$1390 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[3]).
+Adding EN signal on $procdff$1383 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[2]).
+Adding EN signal on $procdff$1376 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[1]).
+Adding EN signal on $procdff$1369 ($dff) from module i2c_fault_capture (D = \event_timestamp, Q = \time_mem[0]).
+Adding EN signal on $procdff$1362 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[15]).
+Adding EN signal on $procdff$1355 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[14]).
+Adding EN signal on $procdff$1348 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[13]).
+Adding EN signal on $procdff$1341 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[12]).
+Adding EN signal on $procdff$1334 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[11]).
+Adding EN signal on $procdff$1327 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[10]).
+Adding EN signal on $procdff$1320 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[9]).
+Adding EN signal on $procdff$1313 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[8]).
+Adding EN signal on $procdff$1306 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[7]).
+Adding EN signal on $procdff$1299 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[6]).
+Adding EN signal on $procdff$1292 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[5]).
+Adding EN signal on $procdff$1285 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[4]).
+Adding EN signal on $procdff$1278 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[3]).
+Adding EN signal on $procdff$1271 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[2]).
+Adding EN signal on $procdff$1264 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[1]).
+Adding EN signal on $procdff$1257 ($dff) from module i2c_fault_capture (D = \event_data, Q = \data_mem[0]).
+Adding EN signal on $procdff$1250 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[15]).
+Adding EN signal on $procdff$1243 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[14]).
+Adding EN signal on $procdff$1236 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[13]).
+Adding EN signal on $procdff$1229 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[12]).
+Adding EN signal on $procdff$1222 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[11]).
+Adding EN signal on $procdff$1215 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[10]).
+Adding EN signal on $procdff$1208 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[9]).
+Adding EN signal on $procdff$1201 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[8]).
+Adding EN signal on $procdff$1194 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[7]).
+Adding EN signal on $procdff$1187 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[6]).
+Adding EN signal on $procdff$1180 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[5]).
+Adding EN signal on $procdff$1173 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[4]).
+Adding EN signal on $procdff$1166 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[3]).
+Adding EN signal on $procdff$1159 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[2]).
+Adding EN signal on $procdff$1152 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[1]).
+Adding EN signal on $procdff$1145 ($dff) from module i2c_fault_capture (D = \event_type, Q = \type_mem[0]).
+Adding EN signal on $procdff$1138 ($adff) from module i2c_fault_capture (D = $procmux$762_Y, Q = \post_remaining).
+Adding EN signal on $procdff$1133 ($adff) from module i2c_fault_capture (D = $add$rtl/i2c_fault_capture.sv:105$72_Y, Q = \history_count).
+Adding EN signal on $procdff$1128 ($adff) from module i2c_fault_capture (D = $sub$rtl/i2c_fault_capture.sv:90$69_Y, Q = \start_ptr).
+Adding EN signal on $procdff$1123 ($adff) from module i2c_fault_capture (D = $add$rtl/i2c_fault_capture.sv:80$66_Y, Q = \write_ptr).
+Adding EN signal on $procdff$1118 ($adff) from module i2c_fault_capture (D = $procmux$794_Y, Q = \capture_count).
+Adding EN signal on $procdff$1113 ($adff) from module i2c_fault_capture (D = 1'1, Q = \capture_done).
+Adding EN signal on $procdff$1108 ($adff) from module i2c_fault_capture (D = $procmux$812_Y, Q = \fault_triggered).
+Adding EN signal on $procdff$1609 ($adff) from module i2c_transaction_decoder (D = $0\shift_reg[7:0], Q = \shift_reg).
+Adding EN signal on $procdff$1604 ($adff) from module i2c_transaction_decoder (D = $0\bit_count[2:0], Q = \bit_count).
+Adding EN signal on $procdff$1599 ($adff) from module i2c_transaction_decoder (D = $0\state[2:0], Q = \state).
+Adding EN signal on $procdff$1584 ($adff) from module i2c_transaction_decoder (D = $logic_not$rtl/i2c_transaction_decoder.sv:144$18_Y, Q = \acked).
+Adding EN signal on $procdff$1564 ($adff) from module i2c_transaction_decoder (D = { \shift_reg [6:0] \sda_sync }, Q = \data_byte).
+Adding EN signal on $procdff$1554 ($adff) from module i2c_transaction_decoder (D = \sda_sync, Q = \rw).
+Adding EN signal on $procdff$1549 ($adff) from module i2c_transaction_decoder (D = \shift_reg [6:0], Q = \address).
+
+6.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 178 unused cells and 178 unused wires.
+<suppressed ~181 debug messages>
+
+6.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+<suppressed ~2 debug messages>
+Optimizing module i2c_fault_capture.
+<suppressed ~2 debug messages>
+Optimizing module i2c_transaction_decoder.
+<suppressed ~3 debug messages>
+
+6.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+6.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 0 changes.
+
+6.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\i2c_fault_capture'.
+<suppressed ~105 debug messages>
+Finding identical cells in module `\i2c_transaction_decoder'.
+<suppressed ~33 debug messages>
+Removed a total of 47 cells.
+
+6.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 47 unused wires.
+<suppressed ~3 debug messages>
+
+6.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+6.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 0 changes.
+
+6.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.8.23. Finished OPT passes. (There is nothing left to do.)
+
+6.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 2 bits (of 4) from mux cell i2c_event_logger.$procmux$853 ($mux).
+Removed top 2 bits (of 4) from wire i2c_event_logger.$procmux$853_Y.
+Removed top 1 bits (of 5) from port A of cell i2c_fault_capture.$lt$rtl/i2c_fault_capture.sv:49$39 ($lt).
+Removed top 1 bits (of 5) from port A of cell i2c_fault_capture.$add$rtl/i2c_fault_capture.sv:95$70 ($add).
+Removed top 4 bits (of 5) from port B of cell i2c_fault_capture.$add$rtl/i2c_fault_capture.sv:95$70 ($add).
+Removed top 3 bits (of 4) from port B of cell i2c_fault_capture.$eq$rtl/i2c_fault_capture.sv:114$74 ($eq).
+Removed top 3 bits (of 4) from port B of cell i2c_fault_capture.$procmux$100_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$111_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$112_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$113_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$114_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell i2c_fault_capture.$procmux$115_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell i2c_fault_capture.$procmux$116_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$232_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$246_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$261_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell i2c_fault_capture.$procmux$277_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell i2c_fault_capture.$procmux$294_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell i2c_fault_capture.$procmux$312_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell i2c_fault_capture.$procmux$331_CMP0 ($eq).
+Removed top 4 bits (of 5) from port B of cell i2c_transaction_decoder.$auto$opt_dff.cc:195:make_patterns_logic$1838 ($ne).
+Removed top 5 bits (of 6) from port B of cell i2c_transaction_decoder.$auto$opt_dff.cc:195:make_patterns_logic$1860 ($ne).
+Removed top 1 bits (of 3) from port B of cell i2c_transaction_decoder.$procmux$1005_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell i2c_transaction_decoder.$procmux$1009_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell i2c_transaction_decoder.$procmux$1013_CMP0 ($eq).
+Removed top 1 bits (of 8) from FF cell i2c_transaction_decoder.$auto$ff.cc:266:slice$1832 ($adffe).
+Removed top 1 bits (of 8) from mux cell i2c_transaction_decoder.$procmux$995 ($mux).
+Removed top 1 bits (of 8) from mux cell i2c_transaction_decoder.$procmux$992 ($mux).
+Removed top 1 bits (of 8) from mux cell i2c_transaction_decoder.$procmux$989 ($mux).
+Removed top 1 bits (of 8) from mux cell i2c_transaction_decoder.$procmux$981 ($pmux).
+Removed top 1 bits (of 8) from mux cell i2c_transaction_decoder.$procmux$979 ($mux).
+Removed top 1 bits (of 8) from wire i2c_transaction_decoder.$0\shift_reg[7:0].
+Removed top 1 bits (of 8) from wire i2c_transaction_decoder.$procmux$979_Y.
+Removed top 1 bits (of 8) from wire i2c_transaction_decoder.$procmux$981_Y.
+Removed top 1 bits (of 8) from wire i2c_transaction_decoder.$procmux$989_Y.
+Removed top 1 bits (of 8) from wire i2c_transaction_decoder.$procmux$992_Y.
+Removed top 1 bits (of 8) from wire i2c_transaction_decoder.shift_reg.
+
+6.10. Executing PEEPOPT pass (run peephole optimizers).
+
+6.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~2 debug messages>
+
+6.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module i2c_analyzer_top:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module i2c_event_logger:
+  creating $macc model for $add$rtl/i2c_event_logger.sv:80$24 ($add).
+  creating $alu model for $macc $add$rtl/i2c_event_logger.sv:80$24.
+  creating $alu cell for $add$rtl/i2c_event_logger.sv:80$24: $auto$alumacc.cc:495:replace_alu$1898
+  created 1 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module i2c_fault_capture:
+  creating $macc model for $add$rtl/i2c_fault_capture.sv:105$72 ($add).
+  creating $macc model for $add$rtl/i2c_fault_capture.sv:112$73 ($add).
+  creating $macc model for $add$rtl/i2c_fault_capture.sv:44$38 ($add).
+  creating $macc model for $add$rtl/i2c_fault_capture.sv:80$66 ($add).
+  creating $macc model for $add$rtl/i2c_fault_capture.sv:95$70 ($add).
+  creating $macc model for $sub$rtl/i2c_fault_capture.sv:119$75 ($sub).
+  creating $macc model for $sub$rtl/i2c_fault_capture.sv:90$69 ($sub).
+  creating $alu model for $macc $sub$rtl/i2c_fault_capture.sv:90$69.
+  creating $alu model for $macc $sub$rtl/i2c_fault_capture.sv:119$75.
+  creating $alu model for $macc $add$rtl/i2c_fault_capture.sv:95$70.
+  creating $alu model for $macc $add$rtl/i2c_fault_capture.sv:80$66.
+  creating $alu model for $macc $add$rtl/i2c_fault_capture.sv:44$38.
+  creating $alu model for $macc $add$rtl/i2c_fault_capture.sv:112$73.
+  creating $alu model for $macc $add$rtl/i2c_fault_capture.sv:105$72.
+  creating $alu model for $lt$rtl/i2c_fault_capture.sv:103$71 ($lt): new $alu
+  creating $alu model for $lt$rtl/i2c_fault_capture.sv:49$39 ($lt): new $alu
+  creating $alu model for $eq$rtl/i2c_fault_capture.sv:114$74 ($eq): merged with $sub$rtl/i2c_fault_capture.sv:119$75.
+  creating $alu cell for $lt$rtl/i2c_fault_capture.sv:49$39: $auto$alumacc.cc:495:replace_alu$1903
+  creating $alu cell for $lt$rtl/i2c_fault_capture.sv:103$71: $auto$alumacc.cc:495:replace_alu$1908
+  creating $alu cell for $add$rtl/i2c_fault_capture.sv:112$73: $auto$alumacc.cc:495:replace_alu$1913
+  creating $alu cell for $add$rtl/i2c_fault_capture.sv:44$38: $auto$alumacc.cc:495:replace_alu$1916
+  creating $alu cell for $add$rtl/i2c_fault_capture.sv:80$66: $auto$alumacc.cc:495:replace_alu$1919
+  creating $alu cell for $add$rtl/i2c_fault_capture.sv:105$72: $auto$alumacc.cc:495:replace_alu$1922
+  creating $alu cell for $add$rtl/i2c_fault_capture.sv:95$70: $auto$alumacc.cc:495:replace_alu$1925
+  creating $alu cell for $sub$rtl/i2c_fault_capture.sv:119$75, $eq$rtl/i2c_fault_capture.sv:114$74: $auto$alumacc.cc:495:replace_alu$1928
+  creating $alu cell for $sub$rtl/i2c_fault_capture.sv:90$69: $auto$alumacc.cc:495:replace_alu$1933
+  created 9 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module i2c_transaction_decoder:
+  creating $macc model for $add$rtl/i2c_transaction_decoder.sv:137$17 ($add).
+  creating $alu model for $macc $add$rtl/i2c_transaction_decoder.sv:137$17.
+  creating $alu cell for $add$rtl/i2c_transaction_decoder.sv:137$17: $auto$alumacc.cc:495:replace_alu$1936
+  created 1 $alu and 0 $macc cells.
+
+6.13. Executing SHARE pass (SAT-based resource sharing).
+
+6.14. Executing OPT pass (performing simple optimizations).
+
+6.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+6.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+    New input vector for $reduce_and cell $auto$opt_dff.cc:220:make_patterns_logic$1830: { $auto$alumacc.cc:511:replace_alu$1929 $logic_and$rtl/i2c_fault_capture.sv:72$59_Y \fault_triggered }
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 1 changes.
+
+6.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 3 unused wires.
+<suppressed ~1 debug messages>
+
+6.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.14.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.14.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~22 debug messages>
+
+6.14.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 0 changes.
+
+6.14.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.14.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.14.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.14.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.14.16. Finished OPT passes. (There is nothing left to do.)
+
+6.15. Executing MEMORY pass.
+
+6.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+6.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+6.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+6.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+6.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+6.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+6.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+6.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+6.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.17. Executing OPT pass (performing simple optimizations).
+
+6.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+<suppressed ~8 debug messages>
+Optimizing module i2c_fault_capture.
+<suppressed ~8 debug messages>
+Optimizing module i2c_transaction_decoder.
+<suppressed ~31 debug messages>
+
+6.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 4 unused cells and 26 unused wires.
+<suppressed ~7 debug messages>
+
+6.17.5. Finished fast OPT passes.
+
+6.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+6.19. Executing OPT pass (performing simple optimizations).
+
+6.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+6.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+    Consolidated identical input bits for $mux cell $procmux$860:
+      Old ports: A=4'1000, B=4'0110, Y=$procmux$860_Y
+      New ports: A=2'10, B=2'01, Y={ $procmux$860_Y [3] $procmux$860_Y [1] }
+      New connections: { $procmux$860_Y [2] $procmux$860_Y [0] } = { $procmux$860_Y [1] 1'0 }
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+    Consolidated identical input bits for $mux cell $procmux$1023:
+      Old ports: A=3'011, B=3'101, Y=$procmux$1023_Y
+      New ports: A=2'01, B=2'10, Y=$procmux$1023_Y [2:1]
+      New connections: $procmux$1023_Y [0] = 1'1
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 2 changes.
+
+6.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.19.6. Executing OPT_SHARE pass.
+    Found cells that share an operand and can be merged by moving the $mux $procmux$794 in front of them:
+        $auto$alumacc.cc:495:replace_alu$1913
+        $auto$alumacc.cc:495:replace_alu$1925
+
+6.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 6 unused wires.
+<suppressed ~1 debug messages>
+
+6.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+<suppressed ~1 debug messages>
+Optimizing module i2c_transaction_decoder.
+
+6.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+6.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 0 changes.
+
+6.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.19.14. Executing OPT_SHARE pass.
+
+6.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+6.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.19.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+6.19.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \i2c_analyzer_top..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \i2c_event_logger..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_fault_capture..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \i2c_transaction_decoder..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~17 debug messages>
+
+6.19.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \i2c_analyzer_top.
+  Optimizing cells in module \i2c_event_logger.
+  Optimizing cells in module \i2c_fault_capture.
+  Optimizing cells in module \i2c_transaction_decoder.
+Performed a total of 0 changes.
+
+6.19.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+Removed a total of 0 cells.
+
+6.19.22. Executing OPT_SHARE pass.
+
+6.19.23. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.19.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+
+6.19.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.19.26. Finished OPT passes. (There is nothing left to do.)
+
+6.20. Executing TECHMAP pass (map to technology primitives).
+
+6.20.1. Executing Verilog-2005 frontend: /usr/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/bin/../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Successfully finished Verilog frontend.
+
+6.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $reduce_or.
+Using template $paramod$3ef7d3dd227da7627a99c5e5a6a4deb817573e39\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $mux.
+Using template $paramod$32e7c4d6f92ff4337599ece53082d2e88a82a9f2\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $adff.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $or.
+Using template $paramod$32a7b7b86c07519b7537abc18e96f0331f97914d\_90_alu for cells of type $alu.
+Using template $paramod$fc972a7a46956c1788f3cb5257b53c8f1df2d0cc\_90_alu for cells of type $alu.
+Using template $paramod$8742280fdebca84e1c87f2a86ed84f62d558f4cc\_90_alu for cells of type $alu.
+Using template $paramod$672a140277c71df8314410f22acc08d55222c3c7\_90_alu for cells of type $alu.
+Using template $paramod$740b056ede97228d3eae64ea2fdc81f0a33e0fe7\_90_alu for cells of type $alu.
+Using template $paramod$7f1d45a92d0221fa6c256845bf4513df30042923\_90_pmux for cells of type $pmux.
+Using template $paramod$75a16668b548c3bac59647e2f0c7dad55b2b94b9\_90_pmux for cells of type $pmux.
+Using template $paramod$5d37c9676d77ab033e85de89a3261885cba80ce3\_90_pmux for cells of type $pmux.
+Using template $paramod$83dd457849c736323edf2edb15923eb27f99c683\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $dffe.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000100 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000001 for cells of type $lcu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000101 for cells of type $lcu.
+Using extmapper simplemap for cells of type $logic_or.
+Using template $paramod$6a42b6fefed750f8a1c58eab59479d960557103c\_90_alu for cells of type $alu.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000100000 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1518 debug messages>
+
+6.21. Executing OPT pass (performing simple optimizations).
+
+6.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+<suppressed ~187 debug messages>
+Optimizing module i2c_fault_capture.
+<suppressed ~246 debug messages>
+Optimizing module i2c_transaction_decoder.
+<suppressed ~70 debug messages>
+
+6.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+<suppressed ~12 debug messages>
+Finding identical cells in module `\i2c_fault_capture'.
+<suppressed ~489 debug messages>
+Finding identical cells in module `\i2c_transaction_decoder'.
+<suppressed ~69 debug messages>
+Removed a total of 190 cells.
+
+6.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 73 unused cells and 858 unused wires.
+<suppressed ~76 debug messages>
+
+6.21.5. Finished fast OPT passes.
+
+6.22. Executing ABC pass (technology mapping using ABC).
+
+6.22.1. Extracting gate netlist of module `\i2c_analyzer_top' to `<abc-temp-dir>/input.blif'..
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Don't call ABC as there is nothing to map.
+Removing temp directory.
+
+6.22.2. Extracting gate netlist of module `\i2c_event_logger' to `<abc-temp-dir>/input.blif'..
+Extracted 164 gates and 223 wires to a netlist network with 57 inputs and 47 outputs.
+
+6.22.2.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.22.2.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        9
+ABC RESULTS:            ANDNOT cells:       32
+ABC RESULTS:               MUX cells:        9
+ABC RESULTS:              NAND cells:       23
+ABC RESULTS:               NOR cells:        2
+ABC RESULTS:               NOT cells:        5
+ABC RESULTS:                OR cells:       51
+ABC RESULTS:             ORNOT cells:        3
+ABC RESULTS:              XNOR cells:       14
+ABC RESULTS:               XOR cells:       17
+ABC RESULTS:        internal signals:      119
+ABC RESULTS:           input signals:       57
+ABC RESULTS:          output signals:       47
+Removing temp directory.
+
+6.22.3. Extracting gate netlist of module `\i2c_fault_capture' to `<abc-temp-dir>/input.blif'..
+Extracted 1602 gates and 2341 wires to a netlist network with 737 inputs and 88 outputs.
+
+6.22.3.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.22.3.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       53
+ABC RESULTS:            ANDNOT cells:      795
+ABC RESULTS:               MUX cells:       48
+ABC RESULTS:              NAND cells:       14
+ABC RESULTS:               NOR cells:        7
+ABC RESULTS:               NOT cells:        8
+ABC RESULTS:                OR cells:      483
+ABC RESULTS:             ORNOT cells:      107
+ABC RESULTS:              XNOR cells:        6
+ABC RESULTS:               XOR cells:       24
+ABC RESULTS:        internal signals:     1516
+ABC RESULTS:           input signals:      737
+ABC RESULTS:          output signals:       88
+Removing temp directory.
+
+6.22.4. Extracting gate netlist of module `\i2c_transaction_decoder' to `<abc-temp-dir>/input.blif'..
+Extracted 139 gates and 158 wires to a netlist network with 17 inputs and 29 outputs.
+
+6.22.4.1. Executing ABC.
+Running ABC command: "<yosys-exe-dir>/yosys-abc" -s -f <abc-temp-dir>/abc.script 2>&1
+ABC: ABC command line: "source <abc-temp-dir>/abc.script".
+ABC: 
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library <abc-temp-dir>/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+6.22.4.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        2
+ABC RESULTS:            ANDNOT cells:       38
+ABC RESULTS:               MUX cells:        2
+ABC RESULTS:              NAND cells:       17
+ABC RESULTS:               NOR cells:        6
+ABC RESULTS:               NOT cells:        4
+ABC RESULTS:                OR cells:       37
+ABC RESULTS:             ORNOT cells:       13
+ABC RESULTS:              XNOR cells:        2
+ABC RESULTS:        internal signals:      112
+ABC RESULTS:           input signals:       17
+ABC RESULTS:          output signals:       29
+Removing temp directory.
+
+6.23. Executing OPT pass (performing simple optimizations).
+
+6.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module i2c_analyzer_top.
+Optimizing module i2c_event_logger.
+Optimizing module i2c_fault_capture.
+Optimizing module i2c_transaction_decoder.
+
+6.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\i2c_analyzer_top'.
+Finding identical cells in module `\i2c_event_logger'.
+<suppressed ~3 debug messages>
+Finding identical cells in module `\i2c_fault_capture'.
+Finding identical cells in module `\i2c_transaction_decoder'.
+<suppressed ~3 debug messages>
+Removed a total of 2 cells.
+
+6.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+6.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \i2c_analyzer_top..
+Finding unused cells or wires in module \i2c_event_logger..
+Finding unused cells or wires in module \i2c_fault_capture..
+Finding unused cells or wires in module \i2c_transaction_decoder..
+Removed 0 unused cells and 1358 unused wires.
+<suppressed ~6 debug messages>
+
+6.23.5. Finished fast OPT passes.
+
+6.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `i2c_analyzer_top'. Setting top module to i2c_analyzer_top.
+
+6.24.1. Analyzing design hierarchy..
+Top module:  \i2c_analyzer_top
+Used module:     \i2c_fault_capture
+Used module:     \i2c_event_logger
+Used module:         \i2c_transaction_decoder
+
+6.24.2. Analyzing design hierarchy..
+Top module:  \i2c_analyzer_top
+Used module:     \i2c_fault_capture
+Used module:     \i2c_event_logger
+Used module:         \i2c_transaction_decoder
+Removed 0 unused modules.
+
+6.25. Printing statistics.
+
+=== i2c_analyzer_top ===
+
+   Number of wires:                 16
+   Number of wire bits:            105
+   Number of public wires:          16
+   Number of public wire bits:     105
+   Number of ports:                 12
+   Number of port bits:             60
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     i2c_event_logger                1
+     i2c_fault_capture               1
+
+=== i2c_event_logger ===
+
+   Number of wires:                146
+   Number of wire bits:            303
+   Number of public wires:          22
+   Number of public wire bits:     107
+   Number of ports:                  8
+   Number of port bits:             49
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                242
+     $_ANDNOT_                      32
+     $_AND_                          9
+     $_DFFE_PN0P_                   44
+     $_DFF_PN0_                     33
+     $_MUX_                          9
+     $_NAND_                        23
+     $_NOR_                          2
+     $_NOT_                          5
+     $_ORNOT_                        3
+     $_OR_                          50
+     $_XNOR_                        14
+     $_XOR_                         17
+     i2c_transaction_decoder         1
+
+=== i2c_fault_capture ===
+
+   Number of wires:               1556
+   Number of wire bits:           2336
+   Number of public wires:          66
+   Number of public wire bits:     823
+   Number of ports:                 14
+   Number of port bits:            103
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               2272
+     $_ANDNOT_                     795
+     $_AND_                         53
+     $_DFFE_PN0P_                   23
+     $_DFFE_PP_                    704
+     $_MUX_                         48
+     $_NAND_                        14
+     $_NOR_                          7
+     $_NOT_                          8
+     $_ORNOT_                      107
+     $_OR_                         483
+     $_XNOR_                         6
+     $_XOR_                         24
+
+=== i2c_transaction_decoder ===
+
+   Number of wires:                136
+   Number of wire bits:            174
+   Number of public wires:          27
+   Number of public wire bits:      50
+   Number of ports:                 17
+   Number of port bits:             30
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                165
+     $_ANDNOT_                      38
+     $_AND_                          2
+     $_DFFE_PN0P_                   30
+     $_DFF_PN0_                      9
+     $_DFF_PN1_                      6
+     $_MUX_                          2
+     $_NAND_                        17
+     $_NOR_                          6
+     $_NOT_                          4
+     $_ORNOT_                       12
+     $_OR_                          37
+     $_XNOR_                         2
+
+=== design hierarchy ===
+
+   i2c_analyzer_top                  1
+     i2c_event_logger                1
+       i2c_transaction_decoder       1
+     i2c_fault_capture               1
+
+   Number of wires:               1854
+   Number of wire bits:           2918
+   Number of public wires:         131
+   Number of public wire bits:    1085
+   Number of ports:                 51
+   Number of port bits:            242
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               2678
+     $_ANDNOT_                     865
+     $_AND_                         64
+     $_DFFE_PN0P_                   97
+     $_DFFE_PP_                    704
+     $_DFF_PN0_                     42
+     $_DFF_PN1_                      6
+     $_MUX_                         59
+     $_NAND_                        54
+     $_NOR_                         15
+     $_NOT_                         17
+     $_ORNOT_                      122
+     $_OR_                         570
+     $_XNOR_                        22
+     $_XOR_                         41
+
+6.26. Executing CHECK pass (checking for obvious problems).
+Checking module i2c_analyzer_top...
+Checking module i2c_event_logger...
+Checking module i2c_fault_capture...
+Checking module i2c_transaction_decoder...
+Found and reported 0 problems.
+
+7. Printing statistics.
+
+=== i2c_analyzer_top ===
+
+   Number of wires:                 16
+   Number of wire bits:            105
+   Number of public wires:          16
+   Number of public wire bits:     105
+   Number of ports:                 12
+   Number of port bits:             60
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     i2c_event_logger                1
+     i2c_fault_capture               1
+
+=== i2c_event_logger ===
+
+   Number of wires:                146
+   Number of wire bits:            303
+   Number of public wires:          22
+   Number of public wire bits:     107
+   Number of ports:                  8
+   Number of port bits:             49
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                242
+     $_ANDNOT_                      32
+     $_AND_                          9
+     $_DFFE_PN0P_                   44
+     $_DFF_PN0_                     33
+     $_MUX_                          9
+     $_NAND_                        23
+     $_NOR_                          2
+     $_NOT_                          5
+     $_ORNOT_                        3
+     $_OR_                          50
+     $_XNOR_                        14
+     $_XOR_                         17
+     i2c_transaction_decoder         1
+
+=== i2c_fault_capture ===
+
+   Number of wires:               1556
+   Number of wire bits:           2336
+   Number of public wires:          66
+   Number of public wire bits:     823
+   Number of ports:                 14
+   Number of port bits:            103
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               2272
+     $_ANDNOT_                     795
+     $_AND_                         53
+     $_DFFE_PN0P_                   23
+     $_DFFE_PP_                    704
+     $_MUX_                         48
+     $_NAND_                        14
+     $_NOR_                          7
+     $_NOT_                          8
+     $_ORNOT_                      107
+     $_OR_                         483
+     $_XNOR_                         6
+     $_XOR_                         24
+
+=== i2c_transaction_decoder ===
+
+   Number of wires:                136
+   Number of wire bits:            174
+   Number of public wires:          27
+   Number of public wire bits:      50
+   Number of ports:                 17
+   Number of port bits:             30
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                165
+     $_ANDNOT_                      38
+     $_AND_                          2
+     $_DFFE_PN0P_                   30
+     $_DFF_PN0_                      9
+     $_DFF_PN1_                      6
+     $_MUX_                          2
+     $_NAND_                        17
+     $_NOR_                          6
+     $_NOT_                          4
+     $_ORNOT_                       12
+     $_OR_                          37
+     $_XNOR_                         2
+
+=== design hierarchy ===
+
+   i2c_analyzer_top                  1
+     i2c_event_logger                1
+       i2c_transaction_decoder       1
+     i2c_fault_capture               1
+
+   Number of wires:               1854
+   Number of wire bits:           2918
+   Number of public wires:         131
+   Number of public wire bits:    1085
+   Number of ports:                 51
+   Number of port bits:            242
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               2678
+     $_ANDNOT_                     865
+     $_AND_                         64
+     $_DFFE_PN0P_                   97
+     $_DFFE_PP_                    704
+     $_DFF_PN0_                     42
+     $_DFF_PN1_                      6
+     $_MUX_                         59
+     $_NAND_                        54
+     $_NOR_                         15
+     $_NOT_                         17
+     $_ORNOT_                      122
+     $_OR_                         570
+     $_XNOR_                        22
+     $_XOR_                         41
+
